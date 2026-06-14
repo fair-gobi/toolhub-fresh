@@ -15,6 +15,13 @@ const tools = [
   { name: "PDF Password", href: "/pdf-password", desc: "Lock/Unlock" },
   { name: "PDF Metadata", href: "/pdf-meta", desc: "View info" },
   { name: "PDF Compress", href: "/pdf-compress", desc: "Reduce size" },
+  { name: "GPA Calculator", href: "/gpa-calculator", desc: "TU/NEB GPA" },
+  { name: "Routine Maker", href: "/routine-maker", desc: "Class routine" },
+  { name: "Notes Converter", href: "/notes-converter", desc: "TXT/MD/PDF" },
+  { name: "Invoice Generator", href: "/invoice-generator", desc: "Nepali invoice" },
+  { name: "PAN Checker", href: "/pan-checker", desc: "VAT/PAN valid" },
+  { name: "eSewa Parser", href: "/esewa-parser", desc: "Statement to CSV" },
+
 ];
 
 export default function Home() {
