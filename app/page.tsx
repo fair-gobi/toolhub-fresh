@@ -1,12 +1,15 @@
 import Link from "next/link";
 
 const tools = [
-  { name: "QR Generator", href: "/qr-generator", desc: "Create QR codes instantly" },
+  { name: "QR Generator", href: "/qr-generator", desc: "Create QR codes" },
   { name: "Image Compressor", href: "/image-compressor", desc: "Compress images" },
-  { name: "Image to PDF", href: "/image-to-pdf", desc: "Convert images to PDF" },
-  { name: "PDF Merger", href: "/pdf-merger", desc: "Merge multiple PDFs" },
-  { name: "PDF to Word", href: "/pdf-to-word", desc: "Extract text from PDF" },
-  { name: "Nepali Date 🇳🇵", href: "/nepali-date", desc: "AD to BS converter" },
+  { name: "BG Remover", href: "/bg-remover", desc: "Remove background 1-click" },
+  { name: "YT Thumbnail", href: "/yt-thumbnail", desc: "Download YouTube thumbs" },
+  { name: "Payment QR 🇳🇵", href: "/payment-qr", desc: "eSewa/Khalti QR" },
+  { name: "Image to PDF", href: "/image-to-pdf", desc: "Convert to PDF" },
+  { name: "PDF Merger", href: "/pdf-merger", desc: "Merge PDFs" },
+  { name: "PDF to Word", href: "/pdf-to-word", desc: "PDF to text" },
+  { name: "Nepali Date", href: "/nepali-date", desc: "BS ↔ AD" },
 ];
 
 export default function Home() {
