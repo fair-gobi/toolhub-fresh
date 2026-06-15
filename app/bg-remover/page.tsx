@@ -2,39 +2,49 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function BgRemover() {
-  const [file, setFile] = useState<File | null>(null)
-  const [result, setResult] = useState('')
+export default function BgRemover(){
+  const [img,setImg]=useState<string|null>(null)
+  const [out,setOut]=useState<string|null>(null)
+  const [loading,setLoading]=useState(false)
 
-  const removeBg = async () => {
-    if (!file) return
-    setResult('Processing...')
-    const form = new FormData()
-    form.append('image_file', file)
-    // Free API - remove.bg demo (87zQiymRcTExFvHCsA5Rq7Xc)
-    const res = await fetch('https://api.remove.bg/v1.0/removebg', {
-      method: 'POST',
-      headers: { 'X-Api-Key': 'YOUR_KEY' },
-      body: form
-    })
-    if (res.ok) {
+  async function removeBg(e:any){
+    const file = e.target.files[0]
+    if(!file) return
+    setImg(URL.createObjectURL(file))
+    setLoading(true)
+
+    const fd = new FormData()
+    fd.append('file', file)
+
+    try {
+      // Free HuggingFace model - no key needed
+      const res = await fetch('https://api-inference.huggingface.co/models/briaai/RMBG-1.4', {
+        method: 'POST',
+        body: file
+      })
       const blob = await res.blob()
-      setResult(URL.createObjectURL(blob))
-    } else {
-      setResult('Add your remove.bg API key in code')
+      setOut(URL.createObjectURL(blob))
+    } catch {
+      alert('Try again in 20 seconds - model is loading')
     }
+    setLoading(false)
   }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         <Link href="/" className="text-blue-600">← Back</Link>
-        <h1 className="text-3xl font-bold mt-4">Background Remover</h1>
+        <h1 className="text-3xl font-bold mt-4">AI Background Remover</h1>
+
         <div className="bg-white p-6 rounded-xl shadow mt-4">
-          <input type="file" accept="image/*" onChange={e => setFile(e.target.files?.[0] || null)} className="mb-4" />
-          <button onClick={removeBg} className="w-full bg-purple-600 text-white py-3 rounded">Remove Background</button>
-          {result && result.startsWith('blob') && <img src={result} className="mt-4 max-w-full" />}
-          {result &&!result.startsWith('blob') && <p className="mt-4">{result}</p>}
+          <input type="file" accept="image/*" onChange={removeBg} className="mb-4" />
+
+          {loading && <p className="text-blue-600">Removing background... (10-20 sec first time)</p>}
+
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            {img && <div><p className="text-sm mb-2">Original</p><img src={img} className="rounded border" /></div>}
+            {out && <div><p className="text-sm mb-2">Removed</p><img src={out} className="rounded border" /><a href={out} download="no-bg.png" className="block mt-2 text-center bg-green-600 text-white py-2 rounded">Download PNG</a></div>}
+          </div>
         </div>
       </div>
     </div>
