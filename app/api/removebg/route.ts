@@ -8,17 +8,17 @@ export async function POST(req: Request) {
     fd.append('image_file', file, 'image.jpg')
     fd.append('size', 'auto')
     
-    // Free public API that works from Vercel
     const res = await fetch('https://api.remove.bg/v1.0/removebg', {
       method: 'POST',
       headers: {
-        'X-Api-Key': 'T8Kk3g6ZvQ6q8W7z'  // demo key - works for testing
+        'X-Api-Key': 'E8KzhmJwNZnEAYjJGqgLLFKC'
       },
       body: fd
     })
 
     if (!res.ok) {
       const err = await res.text()
+      console.error('Remove.bg error:', err)
       return new Response(JSON.stringify({ error: err }), { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
@@ -33,6 +33,10 @@ export async function POST(req: Request) {
       }
     })
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500 })
+    console.error('Crash:', e)
+    return new Response(JSON.stringify({ error: e.message }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    })
   }
 }
