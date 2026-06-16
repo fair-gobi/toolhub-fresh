@@ -11,42 +11,26 @@ async function removeBg(e:any){
   if(!file) return
 
   console.log('TOKEN CHECK:', process.env.NEXT_PUBLIC_HUGGINGFACE_TOKEN?.slice(0,5))
-  console.log('Full env:', process.env.NEXT_PUBLIC_HUGGINGFACE_TOKEN? 'EXISTS' : 'MISSING')
-
   setImg(URL.createObjectURL(file))
   setOut(null)
   setLoading(true)
 
-
   try {
-    console.log('Sending to HF...')
-    const res = await fetch('https://api-inference.huggingface.co/models/ilkerc/remove-bg'
-, {
+    const res = await fetch('/api/removebg', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUGGINGFACE_TOKEN || ''}`,
-        'Content-Type': file.type
-      },
       body: file
     })
 
-    console.log('Status:', res.status)
-    if(!res.ok) {
-      const text = await res.text()
-      console.log('Error:', text)
-      throw new Error(`API ${res.status}`)
-    }
+    console.log('API Status:', res.status)
+    if(!res.ok) throw new Error('API failed')
 
     const blob = await res.blob()
-    console.log('Blob size:', blob.size)
     setOut(URL.createObjectURL(blob))
   } catch (err) {
     console.error(err)
-    alert('Failed. Check console (F12) or try again in 10s')
+    alert('Failed - check console')
   }
   setLoading(false)
-
-  // Reset file input so same file can be re-uploaded
   e.target.value = ''
 }
 
