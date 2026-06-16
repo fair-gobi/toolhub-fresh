@@ -13,10 +13,8 @@ export default function Restorer(){
     setImg(URL.createObjectURL(file))
     setLoading(true)
     try {
-      const res = await fetch('/api/restore', { method: 'POST', body: file }) {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUGGINGFACE_TOKEN || ''}` },
-        body: file
+      const res = await fetch('/api/restore', { method: 'POST', body: file })
+
       })
       const blob = await res.blob()
       setOut(URL.createObjectURL(blob))

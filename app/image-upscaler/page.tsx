@@ -13,10 +13,8 @@ export default function Upscaler(){
     setImg(URL.createObjectURL(file))
     setLoading(true)
     try {
-      const res = await fetch('https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-x4-upscaler', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUGGINGFACE_TOKEN || ''}` },
-        body: file
+           const res = await fetch('/api/restore', { method: 'POST', body: file })
+      
       })
       const blob = await res.blob()
       setOut(URL.createObjectURL(blob))
