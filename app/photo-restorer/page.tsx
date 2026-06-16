@@ -14,8 +14,6 @@ export default function Restorer(){
     setLoading(true)
     try {
       const res = await fetch('/api/restore', { method: 'POST', body: file })
-
-      })
       const blob = await res.blob()
       setOut(URL.createObjectURL(blob))
     } catch { alert('Try again') }
