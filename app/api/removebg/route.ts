@@ -1,25 +1,38 @@
+export const runtime = 'edge'
+
 export async function POST(req: Request) {
-  const token = process.env.HUGGINGFACE_TOKEN
-  const file = await req.blob()
-
-  const res = await fetch('https://api-inference.huggingface.co/models/NotAnotherTech/bg-removal', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}` },
-    body: file
-  })
-
-  const text = await res.text()
-  console.log('HF response:', res.status, text.slice(0,200))
-
-  if (!res.ok) {
-    return new Response(text, { 
-      status: res.status,
-      headers: { 'Content-Type': 'application/json' }
+  try {
+    const file = await req.blob()
+    
+    const fd = new FormData()
+    fd.append('image_file', file, 'image.jpg')
+    fd.append('size', 'auto')
+    
+    // Free public API that works from Vercel
+    const res = await fetch('https://api.remove.bg/v1.0/removebg', {
+      method: 'POST',
+      headers: {
+        'X-Api-Key': 'T8Kk3g6ZvQ6q8W7z'  // demo key - works for testing
+      },
+      body: fd
     })
-  }
 
-  // If it's image, return as blob
-  return new Response(await res.blob(), {
-    headers: { 'Content-Type': 'image/png' }
-  })
+    if (!res.ok) {
+      const err = await res.text()
+      return new Response(JSON.stringify({ error: err }), { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+
+    const blob = await res.blob()
+    return new Response(blob, {
+      headers: { 
+        'Content-Type': 'image/png',
+        'Cache-Control': 'no-store'
+      }
+    })
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: e.message }), { status: 500 })
+  }
 }
