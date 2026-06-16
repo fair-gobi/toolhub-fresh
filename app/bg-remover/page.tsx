@@ -20,7 +20,7 @@ async function removeBg(e:any){
 
   try {
     console.log('Sending to HF...')
-    const res = await fetch('https://router.huggingface.co/hf-inference/models/briaai/RMBG-1.4'
+    const res = await fetch('https://api-inference.huggingface.co/models/ilkerc/remove-bg'
 , {
       method: 'POST',
       headers: {
