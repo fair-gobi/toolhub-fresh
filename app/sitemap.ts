@@ -1,54 +1,70 @@
-import { MetadataRoute } from 'next'
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://toolhub-fresh.vercel.app'
-  
-  return [
-    // Core pages
-    { url: `${baseUrl}/`, lastModified: new Date(), priority: 1.0 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), priority: 0.8 },
-    
-    // 9 Category Pages
-    { url: `${baseUrl}/prompts`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/ai-tools`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/pdf-tools`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/image-tools`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/dev-tools`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/text-tools`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/business-tools`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/finance-tools`, lastModified: new Date(), priority: 0.8 },
-    { url: `${baseUrl}/utility-tools`, lastModified: new Date(), priority: 0.8 },
-    
-    // Live AI Tools
-    { url: `${baseUrl}/bg-remover`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/image-upscaler`, lastModified: new Date(), priority: 0.9 },
-    { url: `${baseUrl}/photo-restorer`, lastModified: new Date(), priority: 0.9 },
-    
-    // All 19 Coming Soon Tools
-    { url: `${baseUrl}/qr-generator`, lastModified: new Date() },
-    { url: `${baseUrl}/image-compressor`, lastModified: new Date() },
-    { url: `${baseUrl}/yt-thumbnail`, lastModified: new Date() },
-    { url: `${baseUrl}/payment-qr`, lastModified: new Date() },
-    { url: `${baseUrl}/image-to-pdf`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-merger`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-to-word`, lastModified: new Date() },
-    { url: `${baseUrl}/nepali-date`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-split`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-extract`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-password`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-meta`, lastModified: new Date() },
-    { url: `${baseUrl}/pdf-compress`, lastModified: new Date() },
-    { url: `${baseUrl}/gpa-calculator`, lastModified: new Date() },
-    { url: `${baseUrl}/routine-maker`, lastModified: new Date() },
-    { url: `${baseUrl}/notes-converter`, lastModified: new Date() },
-    { url: `${baseUrl}/invoice-generator`, lastModified: new Date() },
-    { url: `${baseUrl}/pan-checker`, lastModified: new Date() },
-    { url: `${baseUrl}/esewa-parser`, lastModified: new Date() },
-        { url: `${baseUrl}/image-resizer`, lastModified: new Date() },
-    { url: `${baseUrl}/jpg-to-png`, lastModified: new Date() },
-    { url: `${baseUrl}/png-to-jpg`, lastModified: new Date() },
-    { url: `${baseUrl}/webp-converter`, lastModified: new Date() },
-  ]
-}
+@'
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://toolhub-fresh.vercel.app/</loc><lastmod>2026-06-20</lastmod><priority>1.0</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/ai-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/pdf-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/dev-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/text-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/business-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/utility-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/education-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/design-tools</loc><lastmod>2026-06-20</lastmod><priority>0.9</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-to-jpg</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-to-png</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-to-webp</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-compressor</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/image-resizer</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/pdf-to-word</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/pdf-merger</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/pdf-splitter</loc><lastmod>2026-06-20</lastmod><priority>0.8</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/prompt-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/yt-title</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/yt-description</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/blog-outline</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/hashtag-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/caption-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/hook-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/tts</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/json-formatter</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/json-validator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/base64-encoder</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/base64-decoder</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/uuid-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/jwt-decoder</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/regex-tester</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/password-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/sql-formatter</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/xml-formatter</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/html-formatter</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/css-minifier</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/js-minifier</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/hash-generator</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/lorem-ipsum</loc><lastmod>2026-06-20</lastmod><priority>0.7</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/word-counter</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/text-case</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/remove-duplicates</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/markdown-editor</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/diff-checker</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/qr-generator</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/invoice-generator</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/resume-builder</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/business-name</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/password-strength</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/unit-converter</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/currency-converter</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/timezone-converter</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/color-picker</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/gradient-generator</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/palette-extractor</loc><lastmod>2026-06-20</lastmod><priority>0.6</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/age-calculator</loc><lastmod>2026-06-20</lastmod><priority>0.5</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/bmi-calculator</loc><lastmod>2026-06-20</lastmod><priority>0.5</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/percentage-calculator</loc><lastmod>2026-06-20</lastmod><priority>0.5</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/loan-calculator</loc><lastmod>2026-06-20</lastmod><priority>0.5</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/about</loc><lastmod>2026-06-20</lastmod><priority>0.4</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/contact</loc><lastmod>2026-06-20</lastmod><priority>0.4</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/privacy</loc><lastmod>2026-06-20</lastmod><priority>0.3</priority></url>
+<url><loc>https://toolhub-fresh.vercel.app/terms</loc><lastmod>2026-06-20</lastmod><priority>0.3</priority></url>
+</urlset>
+'@ | Set-Content -Path public\sitemap.xml -Encoding UTF8
