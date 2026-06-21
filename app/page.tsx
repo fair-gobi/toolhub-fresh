@@ -19,7 +19,7 @@ const categories = [
     name: "PDF Tools",
     href: "/pdf-tools",
     icon: "📄",
-    count: "10 tools",
+    count: "8 tools",
     desc: "Merge, split, compress"
   },
   {
@@ -47,21 +47,21 @@ const categories = [
     name: "Business Tools",
     href: "/business-tools",
     icon: "💼",
-    count: "10 tools",
+    count: "5 tools",
     desc: "Calculators & generators"
   },
   {
     name: "Finance Tools",
     href: "/finance-tools",
     icon: "💰",
-    count: "8 tools",
+    count: "9 tools",
     desc: "EMI, tax, ROI"
   },
   {
     name: "Utility Tools",
     href: "/utility-tools",
     icon: "🔧",
-    count: "12 tools",
+    count: "5 tools",
     desc: "Nepali tools & more"
   },
 ];
