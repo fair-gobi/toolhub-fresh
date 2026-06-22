@@ -1,6 +1,6 @@
 ﻿'use client';
 import { useState, useEffect } from 'react';
-import { NepaliDate, EnglishDate } from 'nepali-date-converter';
+import { ADToBS, BSToAD } from 'bikram-sambat-js';
 
 export default function NepaliDateConverter() {
   const [bs, setBs] = useState('2082-03-08');
@@ -12,8 +12,8 @@ export default function NepaliDateConverter() {
     if (mode !== 'bs2ad') return;
     try {
       const [y,m,d] = bs.split('-').map(Number);
-      const eng = new NepaliDate(y, m, d).toEnglishDate();
-      setAd(`${eng.getYear()}-${String(eng.getMonth()+1).padStart(2,'0')}-${String(eng.getDate()).padStart(2,'0')}`);
+      const result = BSToAD(`${y}-${m}-${d}`);
+      setAd(result);
     } catch {}
   }, [bs, mode]);
 
@@ -21,9 +21,8 @@ export default function NepaliDateConverter() {
   useEffect(() => {
     if (mode !== 'ad2bs') return;
     try {
-      const [y,m,d] = ad.split('-').map(Number);
-      const nep = new EnglishDate(y, m-1, d).toNepaliDate();
-      setBs(`${nep.getYear()}-${String(nep.getMonth()).padStart(2,'0')}-${String(nep.getDate()).padStart(2,'0')}`);
+      const result = ADToBS(ad);
+      setBs(result);
     } catch {}
   }, [ad, mode]);
 
@@ -31,7 +30,7 @@ export default function NepaliDateConverter() {
     <main className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow">
         <h1 className="text-3xl font-bold mb-2">Nepali Date Converter</h1>
-        <p className="text-gray-600 mb-6">Bikram Sambat ↔ English Date (2000-2090 BS)</p>
+        <p className="text-gray-600 mb-6">Bikram Sambat ↔ English Date</p>
         
         <div className="flex gap-2 mb-6">
           <button onClick={()=>setMode('bs2ad')} className={`px-4 py-2 rounded-lg ${mode==='bs2ad'?'bg-blue-600 text-white':'bg-gray-200'}`}>BS → AD</button>
@@ -47,7 +46,6 @@ export default function NepaliDateConverter() {
               className="w-full border rounded-lg px-4 py-3 text-lg font-mono"
               placeholder="2082-03-08"
             />
-            <p className="text-sm text-gray-500 mt-1">Format: YYYY-MM-DD</p>
           </div>
           <div>
             <label className="block font-medium mb-2">English Date</label>
@@ -60,23 +58,18 @@ export default function NepaliDateConverter() {
           </div>
         </div>
 
-        <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-800">{bs} BS</div>
-            <div className="text-gray-500 my-2">⇅</div>
-            <div className="text-2xl font-bold text-gray-800">{ad} AD</div>
-          </div>
-          <div className="mt-4 text-sm text-center text-gray-600">
-            {new Date(ad).toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}
-          </div>
+        <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border text-center">
+          <div className="text-2xl font-bold">{bs} BS</div>
+          <div className="text-gray-500 my-2">⇅</div>
+          <div className="text-2xl font-bold">{ad} AD</div>
         </div>
 
         <div className="mt-6 flex gap-3">
-          <button onClick={()=>{const today=new EnglishDate(); const n=today.toNepaliDate(); setBs(`${n.getYear()}-${String(n.getMonth()).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`); setMode('bs2ad')}} className="px-4 py-2 bg-green-600 text-white rounded-lg">Today</button>
+          <button onClick={()=>{ const today=new Date().toISOString().split('T')[0]; setAd(today); setMode('ad2bs'); }} className="px-4 py-2 bg-green-600 text-white rounded-lg">Today</button>
           <button onClick={()=>navigator.clipboard.writeText(`${bs} BS = ${ad} AD`)} className="px-4 py-2 bg-gray-200 rounded-lg">Copy</button>
         </div>
 
-        <a href="/utility" className="inline-block mt-8 text-blue-600">← Back to Utility</a>
+        <a href="/utility" className="inline-block mt-8 text-blue-600">← Back</a>
       </div>
     </main>
   );
