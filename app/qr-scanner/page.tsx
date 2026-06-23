@@ -14,17 +14,15 @@ export default function QRScanner() {
   const [scanning, setScanning] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const streamRef = useRef<MediaStream | null>(null)
+  const streamRef = useRef<MediaStream|null>(null)
 
   useEffect(() => {
     if (!is2FA ||!secret) return
     const update = () => {
       try {
         setOtp(authenticator.generate(secret))
-        setTimeLeft(30 - (Math.floor(Date.now() / 1000) % 30))
-      } catch {
-        setOtp('ERROR')
-      }
+        setTimeLeft(30 - Math.floor(Date.now() / 1000) % 30)
+      } catch {}
     }
     update()
     const id = setInterval(update, 1000)
@@ -34,63 +32,63 @@ export default function QRScanner() {
   const handleScan = (data: string) => {
     const clean = data.trim()
     setResult(clean)
-    stopCamera()
-
     if (clean.toLowerCase().startsWith('otpauth://')) {
       try {
         const url = new URL(clean)
         const sec = url.searchParams.get('secret') || ''
-        const iss = url.searchParams.get('issuer') || 'Authenticator'
-        let label = url.pathname.replace(/^\/+/, '').replace(/^totp\//i, '')
-        label = decodeURIComponent(label)
-        if (label.includes(':')) label = label.split(':').pop() || label
+        const iss = url.searchParams.get('issuer') || ''
+        let lbl = url.pathname.replace('/', '').replace('totp/', '')
+        if (lbl.includes(':')) lbl = lbl.split(':')[1]
+        lbl = decodeURIComponent(lbl)
 
         setSecret(sec)
-        setIssuer(iss)
-        setAccount(label || 'Account')
+        setIssuer(iss || '2FA')
+        setAccount(lbl)
         setIs2FA(true)
         setOtp(authenticator.generate(sec))
-        return
-      } catch {}
+      } catch {
+        setIs2FA(false)
+      }
+    } else {
+      setIs2FA(false)
     }
-    setIs2FA(false)
+    stopCamera()
   }
 
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      streamRef.current = stream
+      const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      streamRef.current = s
       if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        await videoRef.current.play()
+        videoRef.current.srcObject = s
+        videoRef.current.play()
         setScanning(true)
         scanLoop()
       }
     } catch {
-      alert('Camera access denied')
+      alert('Camera denied')
     }
   }
 
   const stopCamera = () => {
-    streamRef.current?.getTracks().forEach((t) => t.stop())
+    streamRef.current?.getTracks().forEach(t => t.stop())
     setScanning(false)
   }
 
   const scanLoop = () => {
-    const video = videoRef.current
-    const canvas = canvasRef.current
-    if (!video ||!canvas || video.readyState!== 4) {
+    const v = videoRef.current, c = canvasRef.current
+    if (!v ||!c || v.readyState!== 4) {
       if (scanning) requestAnimationFrame(scanLoop)
       return
     }
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
-    const ctx = canvas.getContext('2d')
-    ctx?.drawImage(video, 0, 0)
-    const img = ctx?.getImageData(0, 0, canvas.width, canvas.height)
+    c.width = v.videoWidth
+    c.height = v.videoHeight
+    const ctx = c.getContext('2d')
+    ctx?.drawImage(v, 0, 0)
+    const img = ctx?.getImageData(0, 0, c.width, c.height)
     if (img) {
       const code = jsQR(img.data, img.width, img.height)
-      if (code?.data) {
+      if (code) {
         handleScan(code.data)
         return
       }
@@ -98,9 +96,9 @@ export default function QRScanner() {
     if (scanning) requestAnimationFrame(scanLoop)
   }
 
-  const scanFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const scanFile = (e: any) => {
+    const f = e.target.files[0]
+    if (!f) return
     const img = new Image()
     img.onload = () => {
       const c = document.createElement('canvas')
@@ -111,14 +109,10 @@ export default function QRScanner() {
       const d = ctx?.getImageData(0, 0, c.width, c.height)
       if (d) {
         const code = jsQR(d.data, d.width, d.height)
-        if (code?.data) handleScan(code.data)
+        if (code) handleScan(code.data)
       }
     }
-    img.src = URL.createObjectURL(file)
-  }
-
-  const test2FA = () => {
-    handleScan('otpauth://totp/fairgob?secret=ZBLWUEP2WDWCOJR7BZ3Z6NWLAZHDFNHV&issuer=Namecheap')
+    img.src = URL.createObjectURL(f)
   }
 
   return (
@@ -126,7 +120,6 @@ export default function QRScanner() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">QR & 2FA Scanner</h1>
         <p className="text-gray-600 mb-6">Works offline • Private</p>
-
         <div className="bg-white p-6 rounded-2xl border">
           {!scanning &&!result && (
             <div className="space-y-3">
@@ -135,58 +128,34 @@ export default function QRScanner() {
                 📁 Upload Image
                 <input type="file" accept="image/*" onChange={scanFile} className="hidden" />
               </label>
-              <button onClick={test2FA} className="w-full bg-orange-500 text-white py-2 rounded-lg text-sm">Test with Namecheap QR</button>
+              <button onClick={() => handleScan('otpauth://totp/fairgob?secret=ZBLWUEP2WDWCOJR7BZ3Z6NWLAZHDFNHV&issuer=Namecheap')} className="w-full bg-orange-500 text-white py-2 rounded-lg text-xs">Test 2FA (Debug)</button>
             </div>
           )}
-
           {scanning && (
             <div>
               <video ref={videoRef} autoPlay playsInline className="w-full rounded-xl mb-3 bg-black" />
               <button onClick={stopCamera} className="w-full bg-red-600 text-white py-2 rounded-lg">Stop</button>
             </div>
           )}
-
           <canvas ref={canvasRef} className="hidden" />
-
           {result && (
             <div className="mt-4">
               {is2FA? (
-                <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">🔐</div>
-                    <div>
-                      <div className="font-semibold">{issuer}</div>
-                      <div className="text-xs text-gray-600">{account}</div>
-                    </div>
-                  <div className="bg-white p-5 rounded-xl text-center mb-3 shadow-sm">
-                    <div className="text-xs text-gray-500 mb-1">Current Code</div>
-                    <div className="text-4xl font-mono font-bold tracking-widest text-blue-600">{otp}</div>
-                    <div className="mt-2">
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
-                        <div className="bg-blue-600 h-1.5 rounded-full transition-all" style={{ width: `${(timeLeft / 30) * 100}%` }}></div>
-                      </div>
-                      <div className="text-xs text-gray-500 mt-1">{timeLeft}s remaining</div>
-                    </div>
+                <div className="p-5 bg-blue-50 rounded-xl border border-blue-200">
+                  <div className="font-semibold mb-1">{issuer}</div>
+                  <div className="text-xs text-gray-600 mb-3">{account}</div>
+                  <div className="bg-white p-5 rounded-xl text-center">
+                    <div className="text-xs text-gray-500">Current Code</div>
+                    <div className="text-4xl font-mono font-bold text-blue-600 tracking-widest">{otp}</div>
+                    <div className="text-xs mt-2">{timeLeft}s</div>
                   </div>
-                  <div className="bg-white/70 p-3 rounded-lg mb-3">
-                    <div className="text-xs text-gray-500">Secret Key</div>
-                    <div className="font-mono text-xs break-all">{secret}</div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button onClick={() => navigator.clipboard.writeText(otp)} className="bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium">Copy Code</button>
-                    <button onClick={() => navigator.clipboard.writeText(secret)} className="bg-gray-800 text-white py-2.5 rounded-lg text-sm font-medium">Copy Secret</button>
-                  </div>
-                  <button onClick={() => { setResult(''); setIs2FA(false) }} className="w-full mt-2 text-sm text-gray-600 py-2">Scan Another</button>
+                  <div className="mt-3 text-xs font-mono break-all bg-white p-2 rounded">{secret}</div>
+                  <button onClick={() => { setResult(''); setIs2FA(false) }} className="w-full mt-3 text-sm py-2 bg-gray-200 rounded">Scan Another</button>
                 </div>
               ) : (
                 <div className="p-4 bg-green-50 rounded-xl">
-                  <div className="text-sm text-gray-600 mb-1">Scanned:</div>
-                  <div className="font-mono break-all bg-white p-3 rounded border text-sm">{result}</div>
-                  <div className="mt-3 flex gap-2">
-                    <button onClick={() => navigator.clipboard.writeText(result)} className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm">Copy</button>
-                    {result.startsWith('http') && <a href={result} target="_blank" className="flex-1 bg-green-600 text-white py-2 rounded-lg text-sm text-center">Open</a>}
-                  </div>
-                  <button onClick={() => setResult('')} className="w-full mt-2 text-sm text-gray-600">Scan Again</button>
+                  <div className="font-mono text-sm break-all bg-white p-3 rounded border">{result}</div>
+                  <button onClick={() => setResult('')} className="w-full mt-2 text-sm py-2 bg-gray-200 rounded">Scan Again</button>
                 </div>
               )}
             </div>
