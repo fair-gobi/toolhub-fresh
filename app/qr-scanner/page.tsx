@@ -32,38 +32,35 @@ export default function QRScanner() {
   }, [is2FA, secret])
 
   const handleScan = (data: string) => {
-    setResult(data)
-    if (data.startsWith('otpauth://')) {
-      try {
-        const url = new URL(data)
-        const sec = url.searchParams.get('secret') || ''
-        const iss = url.searchParams.get('issuer') || url.pathname.split(':')[0].replace('//totp/', '')
-        const acc = decodeURIComponent(url.pathname.split(':')[1] || url.pathname.replace('//totp/', ''))
+  setResult(data)
+  if (data.startsWith('otpauth://')) {
+    try {
+      const url = new URL(data)
+      const sec = url.searchParams.get('secret') || ''
+      const iss = url.searchParams.get('issuer') || ''
 
-        setSecret(sec)
-        setIssuer(iss)
-        setAccount(acc)
-        setIs2FA(true)
-        setOtp(authenticator.generate(sec))
-      } catch (e) {
-        setIs2FA(false)
+      // Fix: handle both formats - with and without colon
+      let lbl = decodeURIComponent(url.pathname.replace('/','').replace('totp/',''))
+      if (lbl.includes(':')) {
+        const parts = lbl.split(':')
+        lbl = parts[1] || parts[0]
       }
-    } else {
+
+      setSecret(sec)
+      setIssuer(iss || 'Authenticator')
+      setAccount(lbl)
+      setIs2FA(true)
+      setOtp(authenticator.generate(sec))
+    } catch (e) {
+      console.error(e)
       setIs2FA(false)
     }
-    stopCamera()
+  } else {
+    setIs2FA(false)
   }
+  stopCamera()
+}
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-      streamRef.current = stream
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        videoRef.current.play()
-        setScanning(true)
-        scanLoop()
-      }
     } catch { alert('Camera access denied') }
   }
 
