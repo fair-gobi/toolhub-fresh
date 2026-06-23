@@ -30,12 +30,11 @@ export default function SIPCalculator() {
   return (
     <main className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-2xl mx-auto">
-        <h1 <p className="text-gray-600 mb-6 -mt-4">
-  Calculate your Systematic Investment Plan returns. Perfect for mutual funds and recurring investments. 
-  Supports all major currencies worldwide.
- </p> 
-  className="text-2xl font-bold mb-6">SIP Calculator</h1>
-        
+        <h1 className="text-2xl font-bold mb-6">SIP Calculator</h1>
+       <p className="text-gray-600 mb-6 -mt-4">
+         Calculate your Systematic Investment Plan returns. Perfect for mutual funds and recurring investments. 
+          Supports all major currencies worldwide.
+        </p> 
         <div className="bg-white p-6 rounded-2xl border mb-6 space-y-4">
           <div>
             <label className="text-sm text-gray-600">Currency</label>
