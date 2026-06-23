@@ -9,7 +9,7 @@ export default function Home() {
     { icon: "💻", name: "Developer Tools", count: "15 tools", desc: "JSON, Base64, formatters", soon: true },
     { icon: "📝", name: "Text Tools", count: "10 tools", desc: "Counters, converters", soon: true },
     { icon: "💼", name: "Business Tools", count: "5 tools", desc: "Calculators & generators", soon: true },
-    { icon: "💰", name: "Finance Tools", count: "6 tools", desc: "SIP, compound, retirement, FIRE", href: "/finance" },
+    { icon: "💰", name: "Finance Tools", count: "11 tools", desc: "SIP, compound, profit, ROI, FIRE", href: "/finance" },
     { icon: "🔧", name: "Utility Tools", count: "15 tools", desc: "Nepali tools & more", href: "/utility" },
   ]
 

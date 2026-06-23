@@ -61,6 +61,56 @@ const tools = [
     bgColor: 'bg-teal-50',
     borderColor: 'border-teal-200'
   },
+  { 
+    slug: 'profit-margin', 
+    name: 'Profit Margin Calculator', 
+    desc: 'Calculate gross margin, markup, and profit',
+    longDesc: 'Perfect for pricing products. Enter cost and selling price to see margin %, markup %, and profit per unit.',
+    icon: '💹',
+    color: 'from-blue-600 to-indigo-600',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-300'
+  },
+  { 
+    slug: 'break-even', 
+    name: 'Break-even Calculator', 
+    desc: 'Find units needed to cover all costs',
+    longDesc: 'Enter fixed costs, variable cost per unit, and selling price to find your break-even point.',
+    icon: '⚖️',
+    color: 'from-green-600 to-emerald-600',
+    bgColor: 'bg-green-50',
+    borderColor: 'border-green-300'
+  },
+  { 
+    slug: 'roi-calculator', 
+    name: 'ROI Calculator', 
+    desc: 'Calculate return on investment percentage',
+    longDesc: 'Measure profitability of investments. Enter initial investment and final return to get ROI % and profit.',
+    icon: '📈',
+    color: 'from-purple-600 to-violet-600',
+    bgColor: 'bg-purple-50',
+    borderColor: 'border-purple-300'
+  },
+  { 
+    slug: 'cash-flow', 
+    name: 'Cash Flow Calculator', 
+    desc: 'Monthly inflow vs outflow analysis',
+    longDesc: 'Track business cash flow. Enter monthly income and expenses to see net cash flow and runway.',
+    icon: '💵',
+    color: 'from-orange-600 to-amber-600',
+    bgColor: 'bg-orange-50',
+    borderColor: 'border-orange-300'
+  },
+  { 
+    slug: 'startup-runway', 
+    name: 'Startup Runway Calculator', 
+    desc: 'How many months until cash runs out',
+    longDesc: 'For startups and businesses. Enter cash balance and monthly burn rate to calculate runway in months.',
+    icon: '🚀',
+    color: 'from-pink-600 to-rose-600',
+    bgColor: 'bg-pink-50',
+    borderColor: 'border-pink-300'
+  },
 ]
 
 export default function Finance() {
@@ -74,6 +124,10 @@ export default function Finance() {
           </div>
           <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Finance Tools
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+  Free calculators for SIP, retirement, FIRE, profit margin, ROI, and business planning. 
+  Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
+</p>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Free calculators for SIP, retirement, FIRE, and investments. 
