@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Promppromptoolhub Nepal - Free AI Background Remover, Image Upscaler & Photo Restorer",
+  title: "Promptoolhub Nepal - Free AI Background Remover, Image Upscaler & Photo Restorer",
   description: "Free online AI tools to remove image backgrounds, upscale photos 4x with AI, and restore old pictures. Fast, no signup, 100% free.",
   verification: {
     google: "psNzC77faKxonVJOS7yTunAboLEBZjJLioEiddRfEfE",
@@ -36,7 +36,7 @@ export default function RootLayout({
           <a href="/about" className="mx-3 hover:underline">About</a>
           <a href="/privacy" className="mx-3 hover:underline">Privacy</a>
           <a href="/contact" className="mx-3 hover:underline">Contact</a>
-          <p className="mt-2">Â© 2026 Promppromptoolhub Nepal</p>
+          <p className="mt-2">© 2026 Promptoolhub Nepal</p>
         </footer>
         <Analytics />
       </body>
