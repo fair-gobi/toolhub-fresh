@@ -8,7 +8,7 @@
     { icon: "📝", name: "Text Tools", count: "10 tools", desc: "Counters, converters", soon: true },
     { icon: "💼", name: "Business Tools", count: "5 tools", desc: "Calculators & generators", soon: true },
     { icon: "💰", name: "Finance Tools", count: "9 tools", desc: "EMI, tax, ROI", href: "/emi-calculator" },
-    { icon: "🔧", name: "Utility Tools", count: "5 tools", desc: "Nepali tools & more", href: "/date-converter" },
+    { icon: "🔧", name: "Utility Tools", count: "15 tools", desc: "Nepali tools & more", href: "/utility" },
   ];
 
   return (
