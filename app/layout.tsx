@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import {Analytics } from '@vercel/analytics/react';
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -38,6 +38,7 @@ export default function RootLayout({
           <a href="/contact" className="mx-3 hover:underline">Contact</a>
           <p className="mt-2">Â© 2026 Promppromptoolhub Nepal</p>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
