@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useState, useRef, useEffect } from 'react'
 import jsQR from 'jsqr'
 import { authenticator } from 'otplib'
@@ -14,54 +14,46 @@ export default function QRScanner() {
   const [scanning, setScanning] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const streamRef = useRef<MediaStream|null>(null)
+  const streamRef = useRef<MediaStream | null>(null)
 
   useEffect(() => {
-    if (is2FA && secret) {
-      const update = () => {
-        try {
-          setOtp(authenticator.generate(secret))
-          setTimeLeft(30 - Math.floor(Date.now() / 1000) % 30)
-        } catch { setOtp('ERROR') }
+    if (!is2FA ||!secret) return
+    const update = () => {
+      try {
+        setOtp(authenticator.generate(secret))
+        setTimeLeft(30 - (Math.floor(Date.now() / 1000) % 30))
+      } catch {
+        setOtp('ERROR')
       }
-      update()
-      const interval = setInterval(update, 1000)
-      return () => clearInterval(interval)
     }
+    update()
+    const id = setInterval(update, 1000)
+    return () => clearInterval(id)
   }, [is2FA, secret])
 
   const handleScan = (data: string) => {
-    const cleanData = data.trim()
-    setResult(cleanData)
-    console.log('Scanned:', cleanData) // debug
+    const clean = data.trim()
+    setResult(clean)
+    stopCamera()
 
-    if (cleanData.toLowerCase().includes('otpauth://')) {
+    if (clean.toLowerCase().startsWith('otpauth://')) {
       try {
-        const url = new URL(cleanData)
+        const url = new URL(clean)
         const sec = url.searchParams.get('secret') || ''
         const iss = url.searchParams.get('issuer') || 'Authenticator'
-        let lbl = decodeURIComponent(url.pathname.split('/').pop() || '')
-        if (lbl.includes(':')) lbl = lbl.split(':')[1]
-
-        console.log('Secret:', sec, 'Issuer:', iss, 'Label:', lbl) // debug
+        let label = url.pathname.replace(/^\/+/, '').replace(/^totp\//i, '')
+        label = decodeURIComponent(label)
+        if (label.includes(':')) label = label.split(':').pop() || label
 
         setSecret(sec)
         setIssuer(iss)
-        setAccount(lbl || 'Account')
+        setAccount(label || 'Account')
         setIs2FA(true)
-        const code = authenticator.generate(sec)
-        setOtp(code)
-        console.log('Generated OTP:', code) // debug
-      } catch (e) {
-        console.error('2FA parse error:', e)
-        setIs2FA(false)
-      }
-    } else {
-      setIs2FA(false)
+        setOtp(authenticator.generate(sec))
+        return
+      } catch {}
     }
-    stopCamera()
-  }
-
+    setIs2FA(false)
   }
 
   const startCamera = async () => {
@@ -70,40 +62,44 @@ export default function QRScanner() {
       streamRef.current = stream
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
+        await videoRef.current.play()
         setScanning(true)
         scanLoop()
       }
-    } catch (err) {
+    } catch {
       alert('Camera access denied')
     }
   }
 
   const stopCamera = () => {
-    streamRef.current?.getTracks().forEach(t => t.stop())
+    streamRef.current?.getTracks().forEach((t) => t.stop())
     setScanning(false)
   }
 
   const scanLoop = () => {
-    const video = videoRef.current, canvas = canvasRef.current
+    const video = videoRef.current
+    const canvas = canvasRef.current
     if (!video ||!canvas || video.readyState!== 4) {
       if (scanning) requestAnimationFrame(scanLoop)
       return
     }
-    const ctx = canvas.getContext('2d')
     canvas.width = video.videoWidth
     canvas.height = video.videoHeight
+    const ctx = canvas.getContext('2d')
     ctx?.drawImage(video, 0, 0)
     const img = ctx?.getImageData(0, 0, canvas.width, canvas.height)
     if (img) {
       const code = jsQR(img.data, img.width, img.height)
-      if (code) { handleScan(code.data); return }
+      if (code?.data) {
+        handleScan(code.data)
+        return
+      }
     }
     if (scanning) requestAnimationFrame(scanLoop)
   }
 
-  const scanFile = (e:any) => {
-    const file = e.target.files[0]
+  const scanFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
     if (!file) return
     const img = new Image()
     img.onload = () => {
@@ -111,14 +107,18 @@ export default function QRScanner() {
       c.width = img.width
       c.height = img.height
       const ctx = c.getContext('2d')
-      ctx?.drawImage(img,0,0)
-      const d = ctx?.getImageData(0,0,c.width,c.height)
+      ctx?.drawImage(img, 0, 0)
+      const d = ctx?.getImageData(0, 0, c.width, c.height)
       if (d) {
-        const code = jsQR(d.data,d.width,d.height)
-        if (code) handleScan(code.data)
+        const code = jsQR(d.data, d.width, d.height)
+        if (code?.data) handleScan(code.data)
       }
     }
     img.src = URL.createObjectURL(file)
+  }
+
+  const test2FA = () => {
+    handleScan('otpauth://totp/fairgob?secret=ZBLWUEP2WDWCOJR7BZ3Z6NWLAZHDFNHV&issuer=Namecheap')
   }
 
   return (
@@ -135,6 +135,7 @@ export default function QRScanner() {
                 📁 Upload Image
                 <input type="file" accept="image/*" onChange={scanFile} className="hidden" />
               </label>
+              <button onClick={test2FA} className="w-full bg-orange-500 text-white py-2 rounded-lg text-sm">Test with Namecheap QR</button>
             </div>
           )}
 
@@ -154,50 +155,42 @@ export default function QRScanner() {
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">🔐</div>
                     <div>
-                      <div className="font-semibold">{issuer || '2FA Account'}</div>
+                      <div className="font-semibold">{issuer}</div>
                       <div className="text-xs text-gray-600">{account}</div>
                     </div>
-                  </div>
-
                   <div className="bg-white p-5 rounded-xl text-center mb-3 shadow-sm">
                     <div className="text-xs text-gray-500 mb-1">Current Code</div>
                     <div className="text-4xl font-mono font-bold tracking-widest text-blue-600">{otp}</div>
                     <div className="mt-2">
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
-                        <div className="bg-blue-600 h-1.5 rounded-full transition-all" style={{width: `${(timeLeft/30)*100}%`}}></div>
+                        <div className="bg-blue-600 h-1.5 rounded-full transition-all" style={{ width: `${(timeLeft / 30) * 100}%` }}></div>
                       </div>
                       <div className="text-xs text-gray-500 mt-1">{timeLeft}s remaining</div>
                     </div>
                   </div>
-
                   <div className="bg-white/70 p-3 rounded-lg mb-3">
                     <div className="text-xs text-gray-500">Secret Key</div>
                     <div className="font-mono text-xs break-all">{secret}</div>
                   </div>
-
                   <div className="grid grid-cols-2 gap-2">
-                    <button onClick={()=>navigator.clipboard.writeText(otp)} className="bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium">Copy Code</button>
-                    <button onClick={()=>navigator.clipboard.writeText(secret)} className="bg-gray-800 text-white py-2.5 rounded-lg text-sm font-medium">Copy Secret</button>
+                    <button onClick={() => navigator.clipboard.writeText(otp)} className="bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium">Copy Code</button>
+                    <button onClick={() => navigator.clipboard.writeText(secret)} className="bg-gray-800 text-white py-2.5 rounded-lg text-sm font-medium">Copy Secret</button>
                   </div>
-                  <button onClick={()=>{setResult('');setIs2FA(false)}} className="w-full mt-2 text-sm text-gray-600 py-2">Scan Another</button>
+                  <button onClick={() => { setResult(''); setIs2FA(false) }} className="w-full mt-2 text-sm text-gray-600 py-2">Scan Another</button>
                 </div>
               ) : (
                 <div className="p-4 bg-green-50 rounded-xl">
                   <div className="text-sm text-gray-600 mb-1">Scanned:</div>
                   <div className="font-mono break-all bg-white p-3 rounded border text-sm">{result}</div>
                   <div className="mt-3 flex gap-2">
-                    <button onClick={()=>navigator.clipboard.writeText(result)} className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm">Copy</button>
+                    <button onClick={() => navigator.clipboard.writeText(result)} className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm">Copy</button>
                     {result.startsWith('http') && <a href={result} target="_blank" className="flex-1 bg-green-600 text-white py-2 rounded-lg text-sm text-center">Open</a>}
                   </div>
-                  <button onClick={()=>setResult('')} className="w-full mt-2 text-sm text-gray-600">Scan Again</button>
+                  <button onClick={() => setResult('')} className="w-full mt-2 text-sm text-gray-600">Scan Again</button>
                 </div>
               )}
             </div>
           )}
-        </div>
-
-        <div className="mt-4 text-center text-xs text-gray-500">
-          All processing happens in your browser. No data sent to servers.
         </div>
       </div>
     </main>
