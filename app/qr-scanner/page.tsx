@@ -16,7 +16,6 @@ export default function QRScanner() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const streamRef = useRef<MediaStream|null>(null)
 
-  // Real TOTP generation
   useEffect(() => {
     if (is2FA && secret) {
       const update = () => {
@@ -32,36 +31,42 @@ export default function QRScanner() {
   }, [is2FA, secret])
 
   const handleScan = (data: string) => {
-  setResult(data)
-  if (data.startsWith('otpauth://')) {
-    try {
-      const url = new URL(data)
-      const sec = url.searchParams.get('secret') || ''
-      const iss = url.searchParams.get('issuer') || ''
+    setResult(data)
+    if (data.startsWith('otpauth://')) {
+      try {
+        const url = new URL(data)
+        const sec = url.searchParams.get('secret') || ''
+        const iss = url.searchParams.get('issuer') || ''
+        let lbl = decodeURIComponent(url.pathname.replace('/','').replace('totp/','').replace('//totp/',''))
+        if (lbl.includes(':')) lbl = lbl.split(':')[1] || lbl
 
-      // Fix: handle both formats - with and without colon
-      let lbl = decodeURIComponent(url.pathname.replace('/','').replace('totp/',''))
-      if (lbl.includes(':')) {
-        const parts = lbl.split(':')
-        lbl = parts[1] || parts[0]
+        setSecret(sec)
+        setIssuer(iss || 'Authenticator')
+        setAccount(lbl)
+        setIs2FA(true)
+        setOtp(authenticator.generate(sec))
+      } catch (e) {
+        setIs2FA(false)
       }
-
-      setSecret(sec)
-      setIssuer(iss || 'Authenticator')
-      setAccount(lbl)
-      setIs2FA(true)
-      setOtp(authenticator.generate(sec))
-    } catch (e) {
-      console.error(e)
+    } else {
       setIs2FA(false)
     }
-  } else {
-    setIs2FA(false)
+    stopCamera()
   }
-  stopCamera()
-}
 
-    } catch { alert('Camera access denied') }
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      streamRef.current = stream
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+        videoRef.current.play()
+        setScanning(true)
+        scanLoop()
+      }
+    } catch (err) {
+      alert('Camera access denied')
+    }
   }
 
   const stopCamera = () => {
@@ -71,9 +76,13 @@ export default function QRScanner() {
 
   const scanLoop = () => {
     const video = videoRef.current, canvas = canvasRef.current
-    if (!video ||!canvas || video.readyState!==4) { if(scanning) requestAnimationFrame(scanLoop); return }
+    if (!video ||!canvas || video.readyState!== 4) {
+      if (scanning) requestAnimationFrame(scanLoop)
+      return
+    }
     const ctx = canvas.getContext('2d')
-    canvas.width = video.videoWidth; canvas.height = video.videoHeight
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
     ctx?.drawImage(video, 0, 0)
     const img = ctx?.getImageData(0, 0, canvas.width, canvas.height)
     if (img) {
@@ -84,14 +93,20 @@ export default function QRScanner() {
   }
 
   const scanFile = (e:any) => {
-    const file = e.target.files[0]; if (!file) return
+    const file = e.target.files[0]
+    if (!file) return
     const img = new Image()
     img.onload = () => {
       const c = document.createElement('canvas')
-      c.width = img.width; c.height = img.height
-      const ctx = c.getContext('2d'); ctx?.drawImage(img,0,0)
+      c.width = img.width
+      c.height = img.height
+      const ctx = c.getContext('2d')
+      ctx?.drawImage(img,0,0)
       const d = ctx?.getImageData(0,0,c.width,c.height)
-      if (d) { const code = jsQR(d.data,d.width,d.height); if (code) handleScan(code.data) }
+      if (d) {
+        const code = jsQR(d.data,d.width,d.height)
+        if (code) handleScan(code.data)
+      }
     }
     img.src = URL.createObjectURL(file)
   }
