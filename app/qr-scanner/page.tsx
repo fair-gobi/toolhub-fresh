@@ -31,27 +31,37 @@ export default function QRScanner() {
   }, [is2FA, secret])
 
   const handleScan = (data: string) => {
-    setResult(data)
-    if (data.startsWith('otpauth://')) {
+    const cleanData = data.trim()
+    setResult(cleanData)
+    console.log('Scanned:', cleanData) // debug
+
+    if (cleanData.toLowerCase().includes('otpauth://')) {
       try {
-        const url = new URL(data)
+        const url = new URL(cleanData)
         const sec = url.searchParams.get('secret') || ''
-        const iss = url.searchParams.get('issuer') || ''
-        let lbl = decodeURIComponent(url.pathname.replace('/','').replace('totp/','').replace('//totp/',''))
-        if (lbl.includes(':')) lbl = lbl.split(':')[1] || lbl
+        const iss = url.searchParams.get('issuer') || 'Authenticator'
+        let lbl = decodeURIComponent(url.pathname.split('/').pop() || '')
+        if (lbl.includes(':')) lbl = lbl.split(':')[1]
+
+        console.log('Secret:', sec, 'Issuer:', iss, 'Label:', lbl) // debug
 
         setSecret(sec)
-        setIssuer(iss || 'Authenticator')
-        setAccount(lbl)
+        setIssuer(iss)
+        setAccount(lbl || 'Account')
         setIs2FA(true)
-        setOtp(authenticator.generate(sec))
+        const code = authenticator.generate(sec)
+        setOtp(code)
+        console.log('Generated OTP:', code) // debug
       } catch (e) {
+        console.error('2FA parse error:', e)
         setIs2FA(false)
       }
     } else {
       setIs2FA(false)
     }
     stopCamera()
+  }
+
   }
 
   const startCamera = async () => {
