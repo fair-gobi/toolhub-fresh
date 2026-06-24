@@ -1,6 +1,12 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function Runway() {
+  useEffect(() => {
+    document.title = 'Startup Runway Calculator - How Long Will Cash Last'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate startup runway in months. Enter cash and burn rate to see funding timeline.')
+  }, [])
 
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP']
 

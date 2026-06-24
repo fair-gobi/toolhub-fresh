@@ -1,11 +1,12 @@
-export const metadata = {
-  title: 'CAGR Calculator - Calculate Investment Returns & CAGR',
-  description: 'Free CAGR calculator to find annualized returns on stocks, mutual funds, property. Calculate absolute and percentage returns.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+export default function InvestmentReturn() {
+  useEffect(() => {
+    document.title = 'CAGR Calculator - Calculate Investment Returns'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free CAGR calculator to find annualized returns on stocks, mutual funds, property.')
+  }, [])
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP','JPY','AUD','CAD']
 
 export default function InvestmentReturn() {

@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'Cash Flow Calculator - Monthly Cash Flow Analysis',
-  description: 'Track business cash inflow vs outflow. Calculate net cash flow and monthly runway. Free cash flow management tool.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function CashFlow() {
+  useEffect(() => {
+    document.title = 'Cash Flow Calculator - Monthly Cash Flow Analysis'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Track business cash inflow vs outflow. Calculate net cash flow monthly.')
+  }, [])
 
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP']
 

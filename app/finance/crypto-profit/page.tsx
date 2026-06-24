@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'Crypto Profit Calculator - Bitcoin Profit Calculator with Fees',
-  description: 'Calculate cryptocurrency trading profit. Enter buy/sell price, quantity, and fees for Bitcoin, Ethereum, and altcoins. Free crypto calculator.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function CryptoProfit() {
+  useEffect(() => {
+    document.title = 'Crypto Profit Calculator - Bitcoin Profit with Fees'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate cryptocurrency trading profit for Bitcoin, Ethereum with fees included.')
+  }, [])
 
 export default function CryptoProfit() {
   const [buy, setBuy] = useState(30000)

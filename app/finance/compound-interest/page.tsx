@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'Compound Interest Calculator - Daily Monthly Yearly Compounding',
-  description: 'Calculate compound interest with different compounding frequencies. Free calculator for savings, FD, and investments in NPR, INR, USD.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function CompoundInterest() {
+  useEffect(() => {
+    document.title = 'Compound Interest Calculator - Daily Monthly Yearly'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate compound interest with different compounding frequencies for savings and FD.')
+  }, [])
 
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP','JPY','AUD','CAD','CHF','CNY','SGD','AED']
 

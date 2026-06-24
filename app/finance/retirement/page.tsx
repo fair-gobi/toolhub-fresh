@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'Retirement Calculator - Plan Your Retirement Corpus Nepal India',
-  description: 'Calculate how much to save monthly for retirement. Retirement planning calculator with inflation adjustment for NPR and INR.',
-}
 'use client'
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function Retirement() {
+  useEffect(() => {
+    document.title = 'Retirement Calculator - Plan Retirement Corpus Nepal India'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate monthly savings needed for retirement with inflation adjustment for NPR and INR.')
+  }, [])
 const C=['NPR','INR','USD','EUR','GBP']
 export default function R(){
   const[a,setA]=useState(30),[ra,setRa]=useState(60),[m,setM]=useState(15000),[r,setR]=useState(12),[c,setC]=useState('NPR')

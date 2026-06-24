@@ -1,11 +1,12 @@
-export const metadata = {
-  title: 'Profit Margin Calculator - Calculate Markup & Margin %',
-  description: 'Free profit margin calculator for business. Calculate gross margin, markup percentage, and profit per unit. For shop owners and startups.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+export default function ProfitMargin() {
+  useEffect(() => {
+    document.title = 'Profit Margin Calculator - Calculate Markup & Margin'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free profit margin calculator for business. Calculate gross margin and markup percentage.')
+  }, [])
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP','JPY','AUD','CAD']
 
 export default function ProfitMargin() {

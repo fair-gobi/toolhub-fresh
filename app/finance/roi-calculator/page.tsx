@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'ROI Calculator - Return on Investment Calculator',
-  description: 'Calculate ROI percentage for any investment. Measure profitability of business, stocks, or projects. Free ROI tool.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function ROI() {
+  useEffect(() => {
+    document.title = 'ROI Calculator - Return on Investment Calculator'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate ROI percentage for any investment. Measure profitability of business or stocks.')
+  }, [])
 
 const CURRENCIES = ['NPR','INR','USD','EUR','GBP']
 

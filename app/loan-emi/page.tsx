@@ -1,6 +1,17 @@
-﻿"use client"
-import { useState } from "react"
+﻿'use client'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
+export default function EMI() {
+  useEffect(() => {
+    document.title = 'Loan EMI Calculator Nepal India - EMI Calculator'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free EMI calculator for home, car, personal loan. Calculate monthly EMI in NPR, INR, USD.')
+  }, [])
+export default function EMI() {
+  useEffect(() => {
+    document.title = 'Loan EMI Calculator Nepal India - EMI Calculator'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free EMI calculator for home, car, personal loan. Calculate monthly EMI in NPR, INR, USD.')
+  }, [])
 export default function LoanEMI() {
   const [p,setP]=useState(1000000); const [r,setR]=useState(12); const [n,setN]=useState(5)
   const monthly = r/12/100; const months = n*12

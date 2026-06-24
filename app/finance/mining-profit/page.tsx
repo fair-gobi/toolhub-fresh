@@ -1,10 +1,12 @@
-export const metadata = {
-  title: 'Crypto Mining Profit Calculator - Mining Profitability',
-  description: 'Estimate daily crypto mining profits. Calculate based on hashrate, power consumption, and electricity cost. For Bitcoin and altcoin miners.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+export default function Mining() {
+  useEffect(() => {
+    document.title = 'Crypto Mining Profit Calculator - Mining Profitability'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Estimate daily crypto mining profits based on hashrate, power, and electricity cost.')
+  }, [])
 
 export default function Mining() {
   const [hash, setHash] = useState(100)

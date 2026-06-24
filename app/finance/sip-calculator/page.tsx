@@ -1,12 +1,12 @@
-'export const metadata = {
-  title: 'SIP Calculator Nepal India - Monthly SIP Returns Calculator',
-  description: 'Free SIP calculator for NPR, INR, USD. Calculate mutual fund SIP returns, total investment, and wealth gain. Best SIP planner for Nepal and India investors.',
-}
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const CURRENCIES = ['NPR','INR','USD','EUR','GBP','JPY','AUD','CAD','CHF','CNY','SGD','AED','SAR','PKR','BDT','IDR','MYR','THB','PHP','VND','KRW','ZAR','BRL','MXN']
+export default function SIPCalculator() {
+  useEffect(() => {
+    document.title = 'SIP Calculator Nepal India - Monthly SIP Returns Calculator'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free SIP calculator for NPR, INR, USD. Calculate mutual fund SIP returns, total investment, and wealth gain.')
+  }, [])
 
 export default function SIPCalculator() {
   const [monthly, setMonthly] = useState(5000)

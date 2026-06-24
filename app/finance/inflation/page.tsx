@@ -1,11 +1,12 @@
-export const metadata = {
-  title: 'Inflation Calculator Nepal India - Future Value of Money',
-  description: 'Calculate inflation impact on money. See how much you will need in future with 6-10% inflation. Inflation calculator for NPR INR.',
-}
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+export default function Inflation() {
+  useEffect(() => {
+    document.title = 'Inflation Calculator Nepal India - Future Value of Money'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate inflation impact. See how much money you will need in future with inflation.')
+  }, [])
 export default function Inflation() {
   const [amount, setAmount] = useState(100000)
   const [rate, setRate] = useState(6)
