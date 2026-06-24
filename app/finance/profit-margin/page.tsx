@@ -9,7 +9,6 @@ export default function ProfitMargin() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free profit margin calculator for business. Calculate gross margin and markup percentage.')
   }, [])
 
-export default function ProfitMargin() {
   const [cost, setCost] = useState(100)
   const [price, setPrice] = useState(150)
   const [currency, setCurrency] = useState('NPR')

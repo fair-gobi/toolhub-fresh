@@ -8,8 +8,6 @@ export default function ROI() {
     document.title = 'ROI Calculator - Return on Investment Calculator'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate ROI percentage for any investment. Measure profitability of business or stocks.')
   }, [])
-
-export default function ROI() {
   const [invest, setInvest] = useState(100000)
   const [returns, setReturns] = useState(150000)
   const [currency, setCurrency] = useState('NPR')

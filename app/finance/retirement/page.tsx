@@ -8,7 +8,6 @@ export default function Retirement() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate monthly savings needed for retirement with inflation adjustment for NPR and INR.')
   }, [])
 
-export default function R(){
   const[a,setA]=useState(30),[ra,setRa]=useState(60),[m,setM]=useState(15000),[r,setR]=useState(12),[c,setC]=useState('NPR')
   const y=ra-a,n=y*12,mr=r/100/12,fv=m*((Math.pow(1+mr,n)-1)/mr)*(1+mr)
   const fmt=(v:number)=>new Intl.NumberFormat('en',{style:'currency',currency:c,maximumFractionDigits:0}).format(v)

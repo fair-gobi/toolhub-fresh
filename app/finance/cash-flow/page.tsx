@@ -8,8 +8,6 @@ export default function CashFlow() {
     document.title = 'Cash Flow Calculator - Monthly Cash Flow Analysis'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Track business cash inflow vs outflow. Calculate net cash flow monthly.')
   }, [])
-
-export default function CashFlow() {
   const [inflow, setInflow] = useState(200000)
   const [outflow, setOutflow] = useState(150000)
   const [currency, setCurrency] = useState('NPR')

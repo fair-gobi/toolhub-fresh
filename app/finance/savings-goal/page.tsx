@@ -7,8 +7,6 @@ export default function SavingsGoal() {
     document.title = 'Savings Goal Calculator - How Much to Save Monthly'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Reverse SIP calculator. Enter target amount to find exact monthly savings needed.')
   }, [])
-
-export default function SavingsGoal() {
   const [target, setTarget] = useState(2000000)
   const [years, setYears] = useState(5)
   const [rate, setRate] = useState(10)

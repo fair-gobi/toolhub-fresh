@@ -8,7 +8,6 @@ export default function Inflation() {
     document.title = 'Inflation Calculator Nepal India - Future Value of Money'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate inflation impact. See how much money you will need in future with inflation.')
   }, [])
-export default function Inflation() {
   const [amount, setAmount] = useState(100000)
   const [rate, setRate] = useState(6)
   const [years, setYears] = useState(10)

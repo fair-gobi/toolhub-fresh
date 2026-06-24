@@ -7,8 +7,6 @@ export default function InvestmentReturn() {
     document.title = 'CAGR Calculator - Calculate Investment Returns'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free CAGR calculator to find annualized returns on stocks, mutual funds, property.')
   }, [])
-
-export default function InvestmentReturn() {
   const [initial, setInitial] = useState(100000)
   const [final, setFinal] = useState(250000)
   const [years, setYears] = useState(5)

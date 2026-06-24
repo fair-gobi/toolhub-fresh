@@ -9,9 +9,6 @@ export default function CompoundInterest() {
     document.title = 'Compound Interest Calculator - Daily Monthly Yearly'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate compound interest with different compounding frequencies for savings and FD.')
   }, [])
-
-
-export default function CompoundInterest() {
   const [principal, setPrincipal] = useState(100000)
   const [rate, setRate] = useState(8)
   const [years, setYears] = useState(5)

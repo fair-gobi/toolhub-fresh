@@ -9,8 +9,6 @@ export default function BreakEven() {
     document.title = 'Break Even Calculator - Find Break Even Point'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate break-even point for business. How many units to sell to cover costs.')
   }, [])
-
-export default function BreakEven() {
   const [fixed, setFixed] = useState(50000)
   const [variable, setVariable] = useState(100)
   const [price, setPrice] = useState(250)

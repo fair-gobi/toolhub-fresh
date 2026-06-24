@@ -8,8 +8,6 @@ export default function SIPCalculator() {
     document.title = 'SIP Calculator Nepal India - Monthly SIP Returns Calculator'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free SIP calculator for NPR, INR, USD. Calculate mutual fund SIP returns, total investment, and wealth gain.')
   }, [])
-
-export default function SIPCalculator() {
   const [monthly, setMonthly] = useState(5000)
   const [rate, setRate] = useState(12)
   const [years, setYears] = useState(10)

@@ -8,8 +8,6 @@ export default function Runway() {
     document.title = 'Startup Runway Calculator - How Long Will Cash Last'
     document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate startup runway in months. Enter cash and burn rate to see funding timeline.')
   }, [])
-
-export default function Runway() {
   const [cash, setCash] = useState(5000000)
   const [burn, setBurn] = useState(300000)
   const [currency, setCurrency] = useState('NPR')
