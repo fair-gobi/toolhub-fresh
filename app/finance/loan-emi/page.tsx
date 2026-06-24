@@ -1,48 +1,68 @@
 'use client'
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
 
-const CURRENCIES = ['NPR','INR','USD','EUR','GBP']
+import { useEffect, useState } from 'react'
 
-export default function EMI() {
+export default function LoanEmiPage() {
+  const [principal, setPrincipal] = useState(500000)
+  const [rate, setRate] = useState(8.5)
+  const [tenure, setTenure] = useState(5)
+  const [emi, setEmi] = useState(0)
+  const [totalInterest, setTotalInterest] = useState(0)
+  const [totalAmount, setTotalAmount] = useState(0)
+
   useEffect(() => {
-    document.title = 'Loan EMI Calculator Nepal India'
-    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Free EMI calculator for home, car, personal loan. Calculate monthly EMI in NPR, INR, USD.')
+    document.title = 'Loan EMI Calculator | ToolHub'
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', 'Calculate your monthly EMI for home, car, or personal loans instantly. See total interest and payment breakdown.')
   }, [])
 
-  const [principal, setPrincipal] = useState(1000000)
-  const [rate, setRate] = useState(10)
-  const [years, setYears] = useState(5)
-  const [currency, setCurrency] = useState('NPR')
+  useEffect(() => {
+    calculateEmi()
+  }, [principal, rate, tenure])
 
-  const monthlyRate = rate / 12 / 100
-  const months = years * 12
-  const emi = principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1)
-  const total = emi * months
-  const interest = total - principal
-  const fmt = (n: number) => new Intl.NumberFormat('en', { style: 'currency', currency, maximumFractionDigits: 0 }).format(n)
+  const calculateEmi = () => {
+    const p = Number(principal)
+    const r = Number(rate) / 12 / 100 // monthly rate
+    const n = Number(tenure) * 12 // months
+
+    if (p > 0 && r > 0 && n > 0) {
+      const emiCalc = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+      const total = emiCalc * n
+      const interest = total - p
+
+      setEmi(Math.round(emiCalc))
+      setTotalAmount(Math.round(total))
+      setTotalInterest(Math.round(interest))
+    } else {
+      setEmi(0)
+      setTotalAmount(0)
+      setTotalInterest(0)
+    }
+  }
+
+  const formatCurrency = (num: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(num)
+  }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <Link href="/finance" className="text-sm text-indigo-600 hover:underline">← Back</Link>
-        <div className="bg-white rounded-2xl border mt-4 p-6">
-          <h1 className="text-2xl font-bold mb-4">Loan EMI Calculator</h1>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <select value={currency} onChange={e=>setCurrency(e.target.value)} className="w-full p-3 border rounded-xl">{CURRENCIES.map(c=><option key={c}>{c}</option>)}</select>
-              <div><label>Principal: {fmt(principal)}</label><input type="range" min="100000" max="10000000" step="50000" value={principal} onChange={e=>setPrincipal(+e.target.value)} className="w-full" /></div>
-              <div><label>Rate: {rate}%</label><input type="range" min="5" max="20" step="0.25" value={rate} onChange={e=>setRate(+e.target.value)} className="w-full" /></div>
-              <div><label>Years: {years}</label><input type="range" min="1" max="30" value={years} onChange={e=>setYears(+e.target.value)} className="w-full" /></div>
-            </div>
-            <div className="bg-indigo-50 rounded-xl p-6 text-center">
-              <div>Monthly EMI</div><div className="text-3xl font-bold text-indigo-600">{fmt(emi)}</div>
-              <div className="mt-4 text-sm">Total Interest: {fmt(interest)}</div>
-              <div className="text-sm">Total Payment: {fmt(total)}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
-}
+    <main className="container mx-auto p-6 max-w-4xl">
+      <h1 className="text-3xl font-bold mb-2">Loan EMI Calculator</h1>
+      <p className="text-gray-600 mb-8">Calculate your Equated Monthly Installment for any loan</p>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-white border rounded-xl p-6 shadow-sm">
+          <h2 className="text-xl font-semibold mb-6">Loan Details</h2>
+          
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Loan Amount: {formatCurrency(principal)}
+              </label>
+              <input
+                type="range"
+                min="10000"
+                max="10000000"
