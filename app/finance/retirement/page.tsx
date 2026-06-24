@@ -1,15 +1,42 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-const C=['NPR','INR','USD','EUR','GBP']
+
 export default function Retirement() {
   useEffect(() => {
-    document.title = 'Retirement Calculator - Plan Retirement Corpus Nepal India'
-    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Calculate monthly savings needed for retirement with inflation adjustment for NPR and INR.')
+    document.title = 'Retirement Calculator'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Plan retirement corpus with inflation.')
   }, [])
 
-  const[a,setA]=useState(30),[ra,setRa]=useState(60),[m,setM]=useState(15000),[r,setR]=useState(12),[c,setC]=useState('NPR')
-  const y=ra-a,n=y*12,mr=r/100/12,fv=m*((Math.pow(1+mr,n)-1)/mr)*(1+mr)
-  const fmt=(v:number)=>new Intl.NumberFormat('en',{style:'currency',currency:c,maximumFractionDigits:0}).format(v)
-  return(<main className="min-h-screen bg-gradient-to-b from-purple-50 to-white"><div className="max-w-4xl mx-auto px-4 py-8"><Link href="/finance" className="text-sm text-purple-600 hover:underline mb-4 inline-block">← Back</Link><div className="bg-white rounded-2xl border border-purple-100 overflow-hidden"><div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white"><div className="flex items-center gap-3"><div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">🏖️</div><div><h1 className="text-2xl font-bold">Retirement Calculator</h1><p className="text-purple-100 text-sm">Plan your retirement corpus</p></div></div></div><div className="p-6 grid md:grid-cols-2 gap-6"><div className="space-y-4"><select value={c} onChange={e=>setC(e.target.value)} className="w-full p-3 border rounded-xl">{C.map(x=><option key={x}>{x}</option>)}</select><div className="grid grid-cols-2 gap-3"><div><label className="text-sm">Current Age</label><input type="number" value={a} onChange={e=>setA(+e.target.value)} className="w-full p-3 border rounded-xl"/></div><div><label className="text-sm">Retire Age</label><input type="number" value={ra} onChange={e=>setRa(+e.target.value)} className="w-full p-3 border rounded-xl"/></div></div><div><label className="text-sm">Monthly SIP: {fmt(m)}</label><input type="range" min="1000" max="200000" step="1000" value={m} onChange={e=>setM(+e.target.value)} className="w-full accent-purple-600"/></div><div><label className="text-sm">Expected Return: {r}%</label><input type="range" min="6" max="18" value={r} onChange={e=>setR(+e.target.value)} className="w-full accent-purple-600"/></div></div><div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-100"><h3 className="font-semibold mb-3">Retirement Corpus</h3><div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-6 text-white text-center"><div className="text-sm opacity-90">At age {ra}</div><div className="text-3xl font-bold my-2">{fmt(fv)}</div><div className="text-xs opacity-75">{y} years of investing</div></div><div className="mt-4 text-sm text-gray-700">Monthly income at 4% withdrawal: <strong>{fmt(fv*0.04/12)}</strong></div></div></div><div className="px-6 pb-6"><div className="bg-purple-50 rounded-xl p-4 text-sm">💡 Rule: You need 25x your annual expenses. If you spend {fmt(50000)}/month, target corpus is {fmt(15000000)}.</div></div></div></div></main>)
+  const [currentAge, setCurrentAge] = useState(30)
+  const [retireAge, setRetireAge] = useState(60)
+  const [monthly, setMonthly] = useState(50000)
+  const [current, setCurrent] = useState(500000)
+
+  const years = retireAge - currentAge
+  const corpus = current * Math.pow(1.12, years) + monthly * 12 * ((Math.pow(1.12, years) - 1) / 0.12)
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <Link href="/finance" className="text-sm text-purple-600 hover:underline">← Back</Link>
+        <div className="bg-white rounded-2xl border mt-4 p-6">
+          <h1 className="text-2xl font-bold mb-4">Retirement Calculator</h1>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <input type="number" placeholder="Current Age" value={currentAge} onChange={e=>setCurrentAge(+e.target.value)} className="w-full p-3 border rounded-xl" />
+              <input type="number" placeholder="Retire Age" value={retireAge} onChange={e=>setRetireAge(+e.target.value)} className="w-full p-3 border rounded-xl" />
+              <input type="number" placeholder="Monthly Investment" value={monthly} onChange={e=>setMonthly(+e.target.value)} className="w-full p-3 border rounded-xl" />
+              <input type="number" placeholder="Current Savings" value={current} onChange={e=>setCurrent(+e.target.value)} className="w-full p-3 border rounded-xl" />
+            </div>
+            <div className="bg-purple-50 rounded-xl p-6 text-center">
+              <div>Retirement Corpus</div>
+              <div className="text-3xl font-bold text-purple-600">₹{corpus.toFixed(0)}</div>
+              <div className="text-sm mt-2">in {years} years</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
 }
