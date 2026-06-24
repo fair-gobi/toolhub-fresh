@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'FIRE Calculator - Financial Independence Retire Early Nepal',
+  description: 'Calculate your FIRE number and years to financial freedom. FIRE calculator for early retirement planning in Nepal and India.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

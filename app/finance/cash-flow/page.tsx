@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Cash Flow Calculator - Monthly Cash Flow Analysis',
+  description: 'Track business cash inflow vs outflow. Calculate net cash flow and monthly runway. Free cash flow management tool.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

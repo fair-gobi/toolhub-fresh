@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Savings Goal Calculator - How Much to Save Monthly',
+  description: 'Reverse SIP calculator. Enter target amount and timeline to find exact monthly savings needed. Free goal planner.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

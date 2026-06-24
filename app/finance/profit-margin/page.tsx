@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Profit Margin Calculator - Calculate Markup & Margin %',
+  description: 'Free profit margin calculator for business. Calculate gross margin, markup percentage, and profit per unit. For shop owners and startups.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

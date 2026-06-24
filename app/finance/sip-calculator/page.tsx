@@ -1,3 +1,7 @@
+'export const metadata = {
+  title: 'SIP Calculator Nepal India - Monthly SIP Returns Calculator',
+  description: 'Free SIP calculator for NPR, INR, USD. Calculate mutual fund SIP returns, total investment, and wealth gain. Best SIP planner for Nepal and India investors.',
+}
 'use client'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'

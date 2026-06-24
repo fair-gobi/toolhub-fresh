@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'ROI Calculator - Return on Investment Calculator',
+  description: 'Calculate ROI percentage for any investment. Measure profitability of business, stocks, or projects. Free ROI tool.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Loan EMI Calculator Nepal India - EMI Calculator for Home Car Loan',
+  description: 'Free EMI calculator for home loan, car loan, personal loan. Calculate monthly EMI, total interest, and payment schedule in NPR, INR, USD.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

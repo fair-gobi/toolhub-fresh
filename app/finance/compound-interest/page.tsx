@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Compound Interest Calculator - Daily Monthly Yearly Compounding',
+  description: 'Calculate compound interest with different compounding frequencies. Free calculator for savings, FD, and investments in NPR, INR, USD.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

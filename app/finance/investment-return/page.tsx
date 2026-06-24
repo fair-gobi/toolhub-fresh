@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'CAGR Calculator - Calculate Investment Returns & CAGR',
+  description: 'Free CAGR calculator to find annualized returns on stocks, mutual funds, property. Calculate absolute and percentage returns.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

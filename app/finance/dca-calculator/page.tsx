@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'DCA Calculator - Dollar Cost Averaging Calculator Crypto Stocks',
+  description: 'Dollar cost averaging calculator for crypto and stocks. See returns from regular investing over time. Best DCA planner.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

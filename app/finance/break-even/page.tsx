@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Break Even Calculator - Find Break Even Point Units',
+  description: 'Calculate break-even point for business. How many units to sell to cover fixed and variable costs. Free BEP calculator.',
+}
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'

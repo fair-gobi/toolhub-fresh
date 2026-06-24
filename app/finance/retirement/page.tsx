@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Retirement Calculator - Plan Your Retirement Corpus Nepal India',
+  description: 'Calculate how much to save monthly for retirement. Retirement planning calculator with inflation adjustment for NPR and INR.',
+}
 'use client'
 import {useState} from 'react'
 import Link from 'next/link'

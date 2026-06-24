@@ -1,3 +1,16 @@
+'use client'
+import { useState } from 'react'
+import Link from 'next/link'
+
+const tools = [ ...your 16 tools... ]
+
+export default function FinancePage() {
+  const [search, setSearch] = useState('')
+  
+  const filtered = tools.filter(t => 
+    t.name.toLowerCase().includes(search.toLowerCase()) || 
+    t.desc.toLowerCase().includes(search.toLowerCase())
+  )
 import Link from 'next/link'
 
 const tools = [
@@ -170,28 +183,29 @@ export default function Finance() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-4">
             <span className="text-3xl">💰</span>
-          </div>
-          <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-            Finance Tools
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-  Free calculators for SIP, crypto, loans, inflation, profit, ROI, and business planning. 
-  Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
-</p>
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-  Free calculators for SIP, crypto, loans, inflation, profit, ROI, and business planning. 
-  Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
-</p>
-          <div className="flex items-center justify-center gap-4 mt-4 text-sm text-gray-500">
-            <span className="flex items-center gap-1">✓ No signup</span>
-            <span className="flex items-center gap-1">✓ 100% private</span>
-            <span className="flex items-center gap-1">✓ Works offline</span>
-          </div>
-        </div>
+      <div className="text-center mb-8">
+  <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+    Finance Tools
+  </h1>
+  <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+    16 free calculators for SIP, crypto, loans, inflation, profit, ROI, and business planning. 
+    Works worldwide with NPR, INR, USD, EUR.
+  </p>
+  
+  {/* Search */}
+  <div className="max-w-md mx-auto">
+    <input
+      type="text"
+      placeholder="Search calculators... (e.g., SIP, EMI, crypto)"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+</div>
 
-        {/* Tools Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tools.map((tool) => (
+<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+  {filtered.map((tool) => (
             <Link key={tool.slug} href={`/finance/${tool.slug}`}>
               <div className={`group h-full bg-white rounded-2xl border-2 ${tool.borderColor} hover:shadow-xl transition-all duration-300 overflow-hidden`}>
                 {/* Colored Header */}
