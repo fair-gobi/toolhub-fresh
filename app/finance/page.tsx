@@ -110,6 +110,55 @@ const tools = [
     color: 'from-pink-600 to-rose-600',
     bgColor: 'bg-pink-50',
     borderColor: 'border-pink-300'
+  },  { 
+    slug: 'crypto-profit', 
+    name: 'Crypto Profit Calculator', 
+    desc: 'Calculate profit on crypto trades with fees',
+    longDesc: 'Enter buy price, sell price, quantity, and trading fees to see net profit, ROI percentage, and total return.',
+    icon: '₿',
+    color: 'from-yellow-500 to-orange-500',
+    bgColor: 'bg-yellow-50',
+    borderColor: 'border-yellow-200'
+  },
+  { 
+    slug: 'mining-profit', 
+    name: 'Mining Profit Calculator', 
+    desc: 'Estimate daily crypto mining profitability',
+    longDesc: 'Calculate mining returns based on hashrate, power consumption, electricity cost, and current network rewards.',
+    icon: '⛏️',
+    color: 'from-gray-600 to-gray-800',
+    bgColor: 'bg-gray-50',
+    borderColor: 'border-gray-200'
+  },
+  { 
+    slug: 'dca-calculator', 
+    name: 'DCA Calculator', 
+    desc: 'Dollar Cost Averaging investment returns',
+    longDesc: 'See how regular investing performs over time. Enter amount per buy, frequency, and price range to calculate total coins and profit.',
+    icon: '📉',
+    color: 'from-blue-600 to-cyan-600',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-200'
+  },
+  { 
+    slug: 'inflation', 
+    name: 'Inflation Calculator', 
+    desc: 'Calculate future value of money with inflation',
+    longDesc: 'Understand purchasing power erosion. Enter current amount, inflation rate, and years to see future cost and money needed.',
+    icon: '📉',
+    color: 'from-red-500 to-pink-500',
+    bgColor: 'bg-red-50',
+    borderColor: 'border-red-200'
+  },
+  { 
+    slug: 'loan-emi', 
+    name: 'Loan EMI Calculator', 
+    desc: 'Calculate monthly loan EMI and total interest',
+    longDesc: 'Plan your loan repayment. Enter principal, interest rate, and tenure to see monthly EMI, total interest, and total payment.',
+    icon: '🏦',
+    color: 'from-indigo-500 to-purple-500',
+    bgColor: 'bg-indigo-50',
+    borderColor: 'border-purple-200'
   },
 ]
 
@@ -125,14 +174,14 @@ export default function Finance() {
           <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Finance Tools
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-  Free calculators for SIP, retirement, FIRE, profit margin, ROI, and business planning. 
+  Free calculators for SIP, crypto, loans, inflation, profit, ROI, and business planning. 
   Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
 </p>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Free calculators for SIP, retirement, FIRE, and investments. 
-            Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
-          </p>
+  Free calculators for SIP, crypto, loans, inflation, profit, ROI, and business planning. 
+  Works worldwide with 25+ currencies including NPR, INR, USD, EUR.
+</p>
           <div className="flex items-center justify-center gap-4 mt-4 text-sm text-gray-500">
             <span className="flex items-center gap-1">✓ No signup</span>
             <span className="flex items-center gap-1">✓ 100% private</span>
