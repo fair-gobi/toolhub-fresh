@@ -35,7 +35,7 @@ export default function SloganGenerator() {
 
   return (
     <main className="container mx-auto p-6 max-w-4xl">
-      <div className="bg-gradient-to-r from-purple-600 to-violet-500 text-white rounded-xl p-6 mb-6">
+     <div className="bg-gradient-to-r from-purple-600 to-violet-500 text-white rounded-xl p-6 mb-6">
   <div className="flex items-center gap-3">
     <span className="text-4xl">✨</span>
     <div>
