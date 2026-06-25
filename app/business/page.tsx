@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 export default function BusinessPage() {
   const tools = [
+    { name: "Startup Idea Generator", desc: "AI startup ideas", href: "/business/startup-idea", live: true },
     { name: "Business Name Generator", desc: "Generate catchy brand names", href: "/business/name-generator", live: true },
     { name: "Startup Idea Generator", desc: "AI startup ideas", soon: true },
     { name: "Slogan Generator", desc: "Memorable taglines", soon: true },
