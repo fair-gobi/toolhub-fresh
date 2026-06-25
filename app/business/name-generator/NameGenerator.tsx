@@ -31,22 +31,15 @@ export default function NameGenerator() {
 
   return (
     <main className="container mx-auto p-6 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-2">Business Name Generator</h1>
-      <p className="text-gray-600 mb-6">Generate catchy, brandable business names instantly</p>
-      
-      <div className="bg-white border rounded-xl p-6 mb-6">
-        <div className="grid md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Keyword (optional)</label>
-            <input
-              type="text"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              placeholder="e.g., cloud, fresh"
-              className="w-full border rounded-lg px-3 py-2"
-            />
-          </div>
-          <div>
+      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl p-6 mb-6">
+  <div className="flex items-center gap-3">
+    <span className="text-4xl">🏷️</span>
+    <div>
+      <h1 className="text-3xl font-bold">Business Name Generator</h1>
+      <p className="opacity-90">Generate catchy, brandable business names instantly</p>
+    </div>
+  </div>
+</div>
             <label className="block text-sm font-medium mb-1">Industry</label>
             <select
               value={industry}
