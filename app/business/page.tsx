@@ -11,7 +11,10 @@ export default function BusinessPage() {
     { icon: "📋", name: "Business Plan Generator", desc: "1-page plans instantly", href: "/business/business-plan-generator", live: true },
     { icon: "📝", name: "Quotation Generator", desc: "Create client quotes", href: "/business/quotation-generator", live: true },
     { icon: "💰", name: "Profit Calculator", desc: "Margins & profit instantly", href: "/business/profit-calculator", live: true },
-  ]
+    { icon: "🏷️", name: "Pricing Calculator", desc: "Set prices with margin", href: "/business/pricing-calculator", live: true },
+
+]
+
 
   const colors: Record<string, string> = {
     "Business Name Generator": "from-blue-600 to-blue-500",
@@ -23,6 +26,8 @@ export default function BusinessPage() {
     "Business Plan Generator": "from-indigo-600 to-blue-500",
     "Quotation Generator": "from-pink-600 to-rose-500",
     "Profit Calculator": "from-cyan-600 to-blue-500",
+    "Pricing Calculator": "from-slate-700 to-gray-800",
+
  }
 
   return (
