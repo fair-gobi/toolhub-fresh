@@ -10,7 +10,7 @@ export default function BusinessPage() {
     { icon: "💵", name: "Invoice Generator", desc: "Create PDF invoices", href: "/business/invoice-generator", live: true },
     { icon: "📋", name: "Business Plan Generator", desc: "1-page plans instantly", href: "/business/business-plan-generator", live: true },
     { icon: "📝", name: "Quotation Generator", desc: "Create client quotes", href: "/business/quotation-generator", live: true },
-    { icon: "💰", name: "Profit Calculator", desc: "Margins & profit", soon: true },
+    { icon: "💰", name: "Profit Calculator", desc: "Margins & profit instantly", href: "/business/profit-calculator", live: true },
   ]
 
   const colors: Record<string, string> = {
@@ -22,6 +22,7 @@ export default function BusinessPage() {
     "Invoice Generator": "from-emerald-600 to-green-500",
     "Business Plan Generator": "from-indigo-600 to-blue-500",
     "Quotation Generator": "from-pink-600 to-rose-500",
+    "Profit Calculator": "from-cyan-600 to-blue-500",
  }
 
   return (
