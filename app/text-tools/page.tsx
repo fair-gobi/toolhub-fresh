@@ -7,8 +7,11 @@ const tools = [
   { name: 'Paraphrasing Tool', href: '/text-tools/paraphrasing-tool', icon: '🔄', color: 'from-purple-600 to-pink-600', desc: 'Rewrite in new words' },
   { name: 'Text Summarizer', href: '/text-tools/text-summarizer', icon: '📝', color: 'from-green-600 to-teal-600', desc: 'Shorten long articles' },
   { name: 'Sentence Rewriter', href: '/text-tools/sentence-rewriter', icon: '✂️', color: 'from-orange-600 to-red-600', desc: 'Improve sentences' },
+  { name: 'Meta Description', href: '/text-tools/meta-description-generator', icon: '📄', color: 'from-slate-600 to-gray-700', desc: '155-char SEO snippet' },
+  { name: 'Keyword Density', href: '/text-tools/keyword-density-checker', icon: '🔍', color: 'from-amber-600 to-orange-600', desc: 'Check keyword %' },
+  { name: 'Slug Generator', href: '/text-tools/slug-generator', icon: '🔗', color: 'from-cyan-600 to-blue-600', desc: 'URL-friendly slugs' },
+  { name: 'Title Generator', href: '/text-tools/title-generator', icon: '✨', color: 'from-indigo-600 to-violet-600', desc: 'Catchy headlines' },
 ]
-
 export default function Page() {
   return (
     <main className="max-w-6xl mx-auto p-6">
