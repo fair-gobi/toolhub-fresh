@@ -39,9 +39,8 @@ export default function BusinessPage() {
     "LTV Calculator": "from-amber-600 to-orange-600",
     "Lead Value": "from-emerald-600 to-teal-600",
     "Sales Forecast": "from-indigo-600 to-violet-600",
-    "Resignation Latter":"from-gray-700 to-slate-800",    
-    "Offer Latter":"from-indigo-600 to-purple-600",
-
+    "Resignation Letter": "from-gray-700 to-slate-800",      
+    "Offer Letter": "from-indigo-600 to-purple-600",   
  }
 
   return (
