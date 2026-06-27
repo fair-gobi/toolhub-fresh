@@ -1,41 +1,31 @@
-export default function DevToolsPage() {
-  const tools = [
-    { name: 'JSON Formatter', href: '/dev-tools/json-formatter', desc: 'Pretty print JSON' },
-    { name: 'JSON Validator', href: '/dev-tools/json-validator', desc: 'Check syntax' },
-    { name: 'XML Formatter', href: '/dev-tools/xml-formatter', desc: 'Indent XML' },
-    { name: 'XML Validator', href: '/dev-tools/xml-validator', desc: 'Well-formed check' },
-    { name: 'HTML Formatter', href: '/dev-tools/html-formatter', desc: 'Clean HTML' },
-    { name: 'CSS Minifier', href: '/dev-tools/css-minifier', desc: 'Shrink CSS' },
-    { name: 'JS Minifier', href: '/dev-tools/js-minifier', desc: 'Remove whitespace' },
-    { name: 'SQL Formatter', href: '/dev-tools/sql-formatter', desc: 'Format queries' },
-    {name:'Base64', href:'/dev-tools/base64', desc:'Encode/decode'},
-    {name:'URL Encoder', href:'/dev-tools/url-encoder', desc:'Encode URLs'},
-    {name:'JWT Decoder', href:'/dev-tools/jwt-decoder', desc:'Decode tokens'},
-    {name:'Hash Generator', href:'/dev-tools/hash-generator', desc:'SHA hashes'},
-    {name:'UUID Generator', href:'/dev-tools/uuid-generator', desc:'Generate UUIDs'},
-    {name:'Regex Tester', href:'/dev-tools/regex-tester', desc:'Test patterns'},
-    {name:'Cron Generator', href:'/dev-tools/cron-generator', desc:'Build cron'},
-    {name:'API Tester', href:'/dev-tools/api-tester', desc:'Test endpoints'},
-    {name:'Header Checker', href:'/dev-tools/header-checker', desc:'Check headers'},
-    {name:'Markdown Editor', href:'/dev-tools/markdown-editor', desc:'Live preview'},
-
-  ]
-
+﻿export default function Page() {
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Developer Tools</h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tools.map((tool) => (
-          <a
-            key={tool.href}
-            href={tool.href}
-            className="block border rounded-xl p-5 hover:border-blue-500 hover:shadow-sm"
-          >
-            <div className="font-semibold text-gray-900">{tool.name}</div>
-            <div className="text-sm text-gray-600 mt-1">{tool.desc}</div>
-          </a>
-        ))}
-      </div>
+    <div style={{padding:'40px',fontFamily:'system-ui'}}>
+      <h1>Developer Tools (22)</h1>
+      <ul>
+        <li><a href="/dev-tools/json-formatter">JSON Formatter</a></li>
+        <li><a href="/dev-tools/json-validator">JSON Validator</a></li>
+        <li><a href="/dev-tools/xml-formatter">XML Formatter</a></li>
+        <li><a href="/dev-tools/xml-validator">XML Validator</a></li>
+        <li><a href="/dev-tools/html-formatter">HTML Formatter</a></li>
+        <li><a href="/dev-tools/css-minifier">CSS Minifier</a></li>
+        <li><a href="/dev-tools/js-minifier">JS Minifier</a></li>
+        <li><a href="/dev-tools/sql-formatter">SQL Formatter</a></li>
+        <li><a href="/dev-tools/base64">Base64</a></li>
+        <li><a href="/dev-tools/url-encoder">URL Encoder</a></li>
+        <li><a href="/dev-tools/jwt-decoder">JWT Decoder</a></li>
+        <li><a href="/dev-tools/hash-generator">Hash Generator</a></li>
+        <li><a href="/dev-tools/uuid-generator">UUID Generator</a></li>
+        <li><a href="/dev-tools/regex-tester">Regex Tester</a></li>
+        <li><a href="/dev-tools/cron-generator">Cron Generator</a></li>
+        <li><a href="/dev-tools/api-tester">API Tester</a></li>
+        <li><a href="/dev-tools/header-checker">Header Checker</a></li>
+        <li><a href="/dev-tools/markdown-editor">Markdown Editor</a></li>
+        <li><a href="/dev-tools/code-explainer">Code Explainer</a></li>
+        <li><a href="/dev-tools/code-optimizer">Code Optimizer</a></li>
+        <li><a href="/dev-tools/sql-generator">SQL Generator</a></li>
+        <li><a href="/dev-tools/regex-generator">Regex Generator</a></li>
+      </ul>
     </div>
   )
 }
