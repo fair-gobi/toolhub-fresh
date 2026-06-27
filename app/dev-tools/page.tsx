@@ -13,6 +13,11 @@ export default function DevToolsPage() {
     {name:'JWT Decoder', href:'/dev-tools/jwt-decoder', desc:'Decode tokens'},
     {name:'Hash Generator', href:'/dev-tools/hash-generator', desc:'SHA hashes'},
     {name:'UUID Generator', href:'/dev-tools/uuid-generator', desc:'Generate UUIDs'},
+    {name:'Regex Tester', href:'/dev-tools/regex-tester', desc:'Test patterns'},
+    {name:'Cron Generator', href:'/dev-tools/cron-generator', desc:'Build cron'},
+    {name:'API Tester', href:'/dev-tools/api-tester', desc:'Test endpoints'},
+    {name:'Header Checker', href:'/dev-tools/header-checker', desc:'Check headers'},
+    {name:'Markdown Editor', href:'/dev-tools/markdown-editor', desc:'Live preview'},
 
   ]
 
