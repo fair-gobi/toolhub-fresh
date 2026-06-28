@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 
 const tools = [
-  { name: 'Nepali Date Converter', desc: 'BS ↔ AD calendar', href: '/nepali-date-converter', icon: '📅' },
+  { name: 'Nepali Date Converter', desc: 'BS ↔ AD calendar', href: '/utility/nepali-date-converter', icon: '📅' },
   { name: 'GPA Calculator', desc: 'TU/PU CGPA calculator', href: '/gpa-calculator', icon: '📊' },
   { name: 'QR Generator', desc: 'Custom QR codes', href: '/qr-generator', icon: '🔲' },
   { name: 'Payment QR', desc: 'eSewa/Khalti QR', href: '/payment-qr', icon: '💳' },
@@ -13,7 +13,7 @@ const tools = [
   { name: 'Unit Converter', desc: 'Length, weight, temp', href: '/unit-converter', icon: '📏' },
   { name: 'Time Zone Converter', desc: 'World time zones', href: '/time-zone-converter', icon: '🌍' },
   { name: 'Date Difference', desc: 'Days between dates', href: '/date-difference', icon: '📆' },
-  { name: 'EMI Calculator', desc: 'Loan monthly payment', href: '/emi-calculator', icon: '🏦' },
+  { name: 'EMI Calculator', desc: 'Loan monthly payment', href: '/utility/emi-calculator', icon: '🏦' },
   { name: 'GST/VAT Calculator', desc: 'Nepal 13% VAT', href: '/gst-calculator', icon: '🧾' },
   { name: 'YouTube Thumbnail', desc: 'Download HD thumbnails', href: '/youtube-thumbnail', icon: '🖼️' },
 ]
