@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 
 const tools = [
-  { name: 'Nepali Date Converter', desc: 'BS ↔ AD calendar', href: '/date-converter', icon: '📅' },
+  { name: 'Nepali Date Converter', desc: 'BS ↔ AD calendar', href: '/nepali-date-converter', icon: '📅' },
   { name: 'GPA Calculator', desc: 'TU/PU CGPA calculator', href: '/gpa-calculator', icon: '📊' },
   { name: 'QR Generator', desc: 'Custom QR codes', href: '/qr-generator', icon: '🔲' },
   { name: 'Payment QR', desc: 'eSewa/Khalti QR', href: '/payment-qr', icon: '💳' },
@@ -24,7 +24,7 @@ export default function Utility() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold mb-3">🔧 Utility Tools</h1>
-          <p className="text-gray-600">10 free tools • No signup • Works offline</p>
+          <p className="text-gray-600">15 free tools • No signup • Works offline</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
