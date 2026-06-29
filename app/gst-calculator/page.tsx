@@ -22,7 +22,7 @@ export default function GSTCalculator() {
     <main className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">GST/VAT Calculator</h1>
-        <p className="text-gray-600 mb-6">Nepal VAT 13% & India GST</p>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Nepal VAT 13% & India GST</p>
         <div className="bg-white p-6 rounded-2xl border">
           <input type="number" value={amt} onChange={e=>setAmt(e.target.value)} className="w-full p-3 border rounded-xl mb-3" placeholder="Amount" />
           <select value={rate} onChange={e=>setRate(e.target.value)} className="w-full p-3 border rounded-xl mb-3">

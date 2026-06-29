@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { Search, Sun, Moon } from "lucide-react"
 
 const categories = [
   { icon: "💡", name: "Prompt Library", count: "500+ prompts", desc: "ChatGPT, Claude, Gemini prompts", soon: true },
@@ -19,8 +18,8 @@ const categories = [
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // Dark mode toggle with localStorage
   useEffect(() => {
     const isDark = localStorage.theme === 'dark' || 
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -53,20 +52,34 @@ export default function Home() {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
             
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">P</span>
-              </div>
-              <span className="text-xl font-bold hidden sm:block">
-                Promptool<span className="text-blue-600">Hub</span>
-              </span>
-            </Link>
+            {/* Mobile Hamburger + Logo */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <span className="text-xl">✕</span>
+                ) : (
+                  <span className="text-xl">☰</span>
+                )}
+              </button>
+              
+              <Link href="/" className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">P</span>
+                </div>
+                <span className="text-xl font-bold hidden sm:block">
+                  Promptool<span className="text-blue-600">Hub</span>
+                </span>
+              </Link>
+            </div>
 
             {/* Centered Search */}
             <div className="flex-1 max-w-2xl">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
                 <input 
                   type="search" 
                   placeholder="Search for tools..." 
@@ -80,10 +93,10 @@ export default function Home() {
             {/* Dark Mode Toggle */}
             <button 
               onClick={toggleDarkMode}
-              className="flex-shrink-0 p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="flex-shrink-0 p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-xl"
               aria-label="Toggle dark mode"
             >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {darkMode ? '☀️' : '🌙'}
             </button>
           </div>
         </div>
@@ -91,24 +104,35 @@ export default function Home() {
 
       <div className="max-w-screen-2xl mx-auto flex">
         
-        {/* PERSISTENT LEFT SIDEBAR - Desktop only */}
-        <aside className="hidden lg:block w-64 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
+        {/* MOBILE SIDEBAR OVERLAY */}
+        {mobileMenuOpen && (
+          <div 
+            className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* SIDEBAR - Desktop persistent, Mobile drawer */}
+        <aside className={`
+          fixed lg:sticky top-16 z-40 lg:z-0
+          w-64 h-[calc(100vh-4rem)] 
+          bg-white dark:bg-gray-900 lg:bg-transparent
+          border-r border-gray-200 dark:border-gray-800
+          overflow-y-auto transition-transform duration-300
+          ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}>
           <nav className="p-4 space-y-1">
             <p className="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
               Categories
             </p>
             
             {categories.map((cat) => {
-              const isActive = cat.href === "/dev-tools" // Example active state
               return cat.href && !cat.soon ? (
                 <Link
                   key={cat.name}
                   href={cat.href}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                    isActive 
-                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium' 
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 >
                   <span className="text-xl">{cat.icon}</span>
                   <span>{cat.name}</span>
@@ -138,7 +162,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* DYNAMIC GRID: grid-cols-1 md:grid-cols-3 gap-6 */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredCategories.map((cat) => {
               const Card = (

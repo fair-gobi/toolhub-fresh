@@ -19,7 +19,7 @@ export default function GPA() {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border">
           <h1 className="text-2xl md:text-3xl font-bold">GPA Calculator Nepal</h1>
-          <p className="text-gray-600 mt-2">Calculate semester GPA for TU, PU, KU. Supports 4.0 scale with A to F. Auto-saves in your browser.</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Calculate semester GPA for TU, PU, KU. Supports 4.0 scale with A to F. Auto-saves in your browser.</p>
 
           <div className="flex flex-wrap gap-2 my-4">
             <button onClick={()=>setSubjects([{name:'',credit:3,grade:'A'}])} className="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">TU Preset (3cr)</button>
@@ -38,7 +38,7 @@ export default function GPA() {
           <button onClick={()=>setSubjects([...subjects,{name:'',credit:3,grade:'A'}])} className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg">+ Add Subject</button>
 
           <div className="mt-6 p-4 bg-green-50 rounded-xl flex justify-between items-center">
-            <span className="text-gray-700">Total Credits: {totalCredits}</span>
+            <span className="text-gray-700 dark:text-gray-400">Total Credits: {totalCredits}</span>
             <span className="text-2xl font-bold text-green-700">GPA: {gpa.toFixed(2)}</span>
           </div>
           {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
@@ -46,7 +46,7 @@ export default function GPA() {
 
         <div className="bg-white p-6 rounded-2xl shadow-sm border mt-6">
           <h2 className="font-semibold text-lg mb-2">About this tool</h2>
-          <p className="text-gray-600 text-sm leading-relaxed">Used by students in Nepal to estimate results before official publication. Formula: GPA = Σ(Grade Point × Credit) / Σ Credits. Grades follow Nepal 4.0 scale. Data never leaves your device.</p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Used by students in Nepal to estimate results before official publication. Formula: GPA = Σ(Grade Point × Credit) / Σ Credits. Grades follow Nepal 4.0 scale. Data never leaves your device.</p>
         </div>
       </div>
     </main>
